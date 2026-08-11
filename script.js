@@ -24,31 +24,6 @@ navLinks.addEventListener("click", (e) => {
 window.addEventListener("scroll", onScroll, { passive: true });
 onScroll();
 
-const counters = document.querySelectorAll(".stat-num");
-const observer = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
-      const el = entry.target;
-      const target = Number(el.dataset.target);
-      let current = 0;
-      const step = Math.max(1, Math.round(target / 60));
-      const timer = setInterval(() => {
-        current += step;
-        if (current >= target) {
-          current = target;
-          clearInterval(timer);
-        }
-        el.textContent = current + (el.dataset.target === "98" ? "%" : "+");
-      }, 25);
-      observer.unobserve(el);
-    });
-  },
-  { threshold: 0.5 }
-);
-
-counters.forEach((c) => observer.observe(c));
-
 document.getElementById("year").textContent = new Date().getFullYear();
 
 const form = document.getElementById("contactForm");
@@ -81,7 +56,7 @@ form.addEventListener("submit", (e) => {
     return;
   }
 
-  status.textContent = "Pesan terkirim! Tim kami akan segera menghubungi Anda.";
+  status.textContent = "Pesan terkirim, terima kasih. Kami balas di jam kerja.";
   status.classList.add("success");
   form.reset();
 });

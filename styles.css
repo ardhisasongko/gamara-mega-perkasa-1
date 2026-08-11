@@ -342,20 +342,17 @@ ul {
   flex-shrink: 0;
 }
 
-.stats-card {
+.side-card {
   background: var(--primary);
   color: #fff;
   border-radius: var(--radius);
   padding: 2.5rem 2rem;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem 1rem;
   box-shadow: var(--shadow-lg);
   position: relative;
   overflow: hidden;
 }
 
-.stats-card::before {
+.side-card::before {
   content: "";
   position: absolute;
   top: -60px;
@@ -366,20 +363,34 @@ ul {
   background: rgba(233, 180, 76, 0.15);
 }
 
-.stat {
-  display: flex;
-  flex-direction: column;
-}
-
-.stat-num {
-  font-size: 2rem;
+.side-title {
+  font-size: 1.3rem;
   font-weight: 800;
-  color: var(--accent);
+  margin-bottom: 1.5rem;
+  position: relative;
 }
 
-.stat span {
-  font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.8);
+.side-list {
+  display: grid;
+  gap: 1rem;
+  position: relative;
+}
+
+.side-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+}
+
+.side-list li::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
 }
 
 /* ---------- Cards ---------- */
@@ -410,8 +421,14 @@ ul {
   display: grid;
   place-items: center;
   background: rgba(233, 180, 76, 0.15);
+  color: var(--accent-dark);
   border-radius: 14px;
   margin-bottom: 1.25rem;
+}
+
+.card-icon svg {
+  width: 24px;
+  height: 24px;
 }
 
 .card h3 {
@@ -505,9 +522,14 @@ ul {
   display: grid;
   place-items: center;
   background: rgba(233, 180, 76, 0.15);
+  color: var(--accent-dark);
   border-radius: 10px;
-  font-size: 1.2rem;
   flex-shrink: 0;
+}
+
+.contact-icon svg {
+  width: 20px;
+  height: 20px;
 }
 
 .contact-list strong {
@@ -650,8 +672,7 @@ ul {
 
 @media (max-width: 560px) {
   .cards,
-  .features,
-  .stats-card {
+  .features {
     grid-template-columns: 1fr;
   }
 }
