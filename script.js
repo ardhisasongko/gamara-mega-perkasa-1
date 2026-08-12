@@ -24,6 +24,45 @@ navLinks.addEventListener("click", (e) => {
 window.addEventListener("scroll", onScroll, { passive: true });
 onScroll();
 
+const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+const revealObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add("visible");
+      revealObserver.unobserve(entry.target);
+    });
+  },
+  { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+);
+
+document.querySelectorAll(".reveal").forEach((el, i) => {
+  revealObserver.observe(el);
+  if (!prefersReduced.matches) {
+    const columns = el.closest(".cards, .features");
+    const siblings = columns ? el.parentElement.children : [el];
+    const index = Array.prototype.indexOf.call(siblings, el);
+    el.style.setProperty("--reveal-delay", `${Math.min(index * 110, 550)}ms`);
+  }
+});
+
+const preloader = document.getElementById("preloader");
+
+function revealPage() {
+  document.body.classList.add("loaded");
+  preloader.classList.add("hidden");
+  document.body.style.overflow = "";
+}
+
+document.body.style.overflow = "hidden";
+
+if (document.readyState === "complete") {
+  setTimeout(revealPage, 550);
+} else {
+  window.addEventListener("load", () => setTimeout(revealPage, 550));
+}
+
 document.getElementById("year").textContent = new Date().getFullYear();
 
 const form = document.getElementById("contactForm");
